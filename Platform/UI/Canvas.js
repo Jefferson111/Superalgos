@@ -172,7 +172,7 @@ function newCanvas() {
                         spaceDefinitionDrawMap.set(spaceDefinition.animationDrawIndex, spaceDefinition)
                     }
 
-                    /* Build the maps that defines the secuence of execution of different events. */
+                    /* Build the maps that defines the sequence of execution of different events. */
                     if (spaceDefinition.onMouseWheelIndex !== undefined) {
                         projectInstance.events.onMouseWheelMap.set(spaceDefinition.onMouseWheelIndex, spaceInstance)
                     }
@@ -373,7 +373,7 @@ function newCanvas() {
 
         if (EDITOR_ON_FOCUS === true) {
             /*
-             We will fordward the event to whoever is 
+             We will forward the event to whoever is
              controlling the editor.
             */
             if (window.editorController !== undefined) {
@@ -485,6 +485,19 @@ function newCanvas() {
             return
         }
 
+        if (
+            event.shiftKey === true &&
+            (event.ctrlKey === true || event.metaKey === true) &&
+            (event.key === UI.projects.foundations.spaces.floatingSpace.settings.shortcuts.rescueFloatingObjectToMouse || event.key === UI.projects.foundations.spaces.floatingSpace.settings.shortcuts.rescueFloatingObjectToMouse.toLowerCase())
+
+        ) {
+            UI.projects.foundations.spaces.floatingSpace.rescueFloatingObjectToMouse(thisObject.mouse.position)
+            if (event.preventDefault !== undefined) {
+                event.preventDefault()
+            }
+            return
+        }
+
         let nodeOnFocus = await UI.projects.foundations.spaces.designSpace.workspace.getNodeThatIsOnFocus()
         if (nodeOnFocus !== undefined) {
             if (nodeOnFocus.payload.uiObject.codeEditor !== undefined) {
@@ -499,6 +512,11 @@ function newCanvas() {
             }
             if (nodeOnFocus.payload.uiObject.formulaEditor !== undefined) {
                 if (nodeOnFocus.payload.uiObject.formulaEditor.visible === true) {
+                    return
+                }
+            }
+            if (nodeOnFocus.payload.uiObject.listSelector !== undefined) {
+                if (nodeOnFocus.payload.uiObject.listSelector.visible === true) {
                     return
                 }
             }
@@ -637,7 +655,7 @@ function newCanvas() {
         if ((event.ctrlKey === true || event.metaKey === true) && event.altKey === true) {
             /* Shortcuts to nodes */
             if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 90)) {
-                /* From here we prevent the default behaviour. Putting it earlier prevents imput box and text area to receive keystrokes */
+                /* From here we prevent the default behaviour. Putting it earlier prevents input box and text area to receive keystrokes */
                 event.preventDefault()
                 let nodeUsingThisKey = await UI.projects.foundations.spaces.designSpace.workspace.getNodeByShortcutKey(event.key)
 
@@ -758,11 +776,11 @@ function newCanvas() {
             /*
             We will go through all the spaces defined at the project schema for each project
             and we are going to query each space to see if they have the container that is at
-            the mouse position. We will order firt the spaces by the sequence order defined
+            the mouse position. We will order first the spaces by the sequence order defined
             at the project schema specifically for this mouse event.
 
             The order of the projects for events evaluations has intentionally been inverted,
-            because the latest project is drwan the last, on top of the others, that means that
+            because the latest project is drawn the last, on top of the others, that means that
             events should belong to the last first.
             */
             for (let i = PROJECTS_SCHEMA.length - 1; i >= 0; i--) {
@@ -868,11 +886,11 @@ function newCanvas() {
             /*
             We will go through all the spaces defined at the project schema for each project
             and we are going to query each space to see if they have the container that is at
-            the mouse position. We will order firt the spaces by the sequence order defined
+            the mouse position. We will order first the spaces by the sequence order defined
             at the project schema specifically for this mouse event.
 
             The order of the projects for events evaluations has intentionally been inverted,
-            because the latest project is drwan the last, on top of the others, that means that
+            because the latest project is drawn the last, on top of the others, that means that
             events should belong to the last first.
             */
             for (let i = PROJECTS_SCHEMA.length - 1; i >= 0; i--) {
@@ -979,18 +997,18 @@ function newCanvas() {
                 return
             }
 
-            /* Then we check who is the current object underneeth the mounse. */
+            /* Then we check who is the current object underneath the mouse. */
 
             let container
 
             /*
             We will go through all the spaces defined at the project schema for each project
             and we are going to query each space to see if they have the container that is at
-            the mouse position. We will order firt the spaces by the sequence order defined
+            the mouse position. We will order first the spaces by the sequence order defined
             at the project schema specifically for this mouse event.
 
             The order of the projects for events evaluations has intentionally been inverted,
-            because the latest project is drwan the last, on top of the others, that means that
+            because the latest project is drawn the last, on top of the others, that means that
             events should belong to the last first.
             */
             for (let i = PROJECTS_SCHEMA.length - 1; i >= 0; i--) {
@@ -1050,11 +1068,11 @@ function newCanvas() {
             /*
             We will go through all the spaces defined at the project schema for each project
             and we are going to query each space to see if they have the container that is at
-            the mouse position. We will order firt the spaces by the sequence order defined
+            the mouse position. We will order first the spaces by the sequence order defined
             at the project schema specifically for this mouse event.
 
             The order of the projects for events evaluations has intentionally been inverted,
-            because the latest project is drwan the last, on top of the others, that means that
+            because the latest project is drawn the last, on top of the others, that means that
             events should belong to the last first.
             */
             for (let i = PROJECTS_SCHEMA.length - 1; i >= 0; i--) {

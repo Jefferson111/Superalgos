@@ -6,12 +6,12 @@ load all node dependencies and get them ready to the actual App.
 */
 
 /* 
-The TS object is accesible everywhere at the Superalgos Platform Client. 
+The TS object is accessible everywhere at the Superalgos Platform Client.
 It provides access to all modules built for the Task Server.
 */
 global.TS = {}
 /* 
-The SA object is accesible everywhere at the Superalgos Desktop App. 
+The SA object is accessible everywhere at the Superalgos Desktop App.
 It provides access to all modules built for Superalgos in general.
 */
 global.SA = {}
@@ -23,6 +23,12 @@ global.env = ENVIRONMENT_MODULE
 First thing is to load the project schema file.
 */
 global.PROJECTS_SCHEMA = require(global.env.PATH_TO_PROJECT_SCHEMA)
+global.PROJECTS_SCHEMA_MAP = new Map()
+
+for (let i = 0; i < PROJECTS_SCHEMA.length; i++) {
+    let projectDefinition = PROJECTS_SCHEMA[i]
+    PROJECTS_SCHEMA_MAP.set(projectDefinition.name, projectDefinition)
+}
 /* 
 Setting up the modules that will be available, defined at the Project Schema file. 
 */
